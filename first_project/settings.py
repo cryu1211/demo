@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-9#d1=bo&h+my3x)5r20+z6m#02!p6xdh!8^7)4a4uf0xj#)roy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'web', '0.0.0.0']
 
 
 # Application definition
@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.users',
     'rest_framework',
-    'drf_yasg',
+    'drf_yasg', # Swagger API documentation
+    'django_prometheus',
+    'apps.users',
 ]
 
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 ROOT_URLCONF = 'first_project.urls'
@@ -83,7 +86,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME', 'ibm_db'), 
         'USER': os.getenv('DB_USER', 'ibm_user'), 
         'PASSWORD': os.getenv('DB_PASSWORD', 'ibm_pw'),
-        'HOST': os.getenv('DB_HOST', 'db'),  # The hostname for the PostgreSQL service in Docker
+        'HOST': os.getenv('DB_HOST', 'db'),  # The hostname for the PostgreSQL service in Podman
         'PORT': '5432',
     }
 }
@@ -130,3 +133,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PROMETHEUS_METRICS_EXPORT_MIDDLEWARE = True
+

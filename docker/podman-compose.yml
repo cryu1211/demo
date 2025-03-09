@@ -8,9 +8,12 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - postgre_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - backend
+
 
   web:
     build:
@@ -21,8 +24,38 @@ services:
       - db
     ports:
       - "8000:8000"
+    networks:
+      - backend
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
 
 
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    depends_on:
+      - web
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus_data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - backend
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+
+
+networks:
+  backend:
+
 volumes:
-  pg_data:
+  postgre_data:
+  prometheus_data:
