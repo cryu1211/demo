@@ -67,7 +67,7 @@ scrape_configs:
   - job_name: 'django'
     static_configs:
       - targets: ['web:8000']
-    metrics_path: '/metrics'
+    metrics_path: '/prometheus/metrics'
 ```
 2. Django Metrics Export (```django-prometheus```)
 [Reference](https://github.com/korfuri/django-prometheus)
@@ -75,7 +75,7 @@ scrape_configs:
 ### 📌 Metrics Endpoint
 - The metrics endpoint (```/metrics```) is exposed by the Django app to allow Prometheus to scrape data.
 - It provides various metrics, such as request count, response time, and error rates, for monitoring the API's health.
-- To access the metrics manually, visit: 👉 http://127.0.0.1:8000/metrics/
+- To access the metrics manually, visit: 👉 http://127.0.0.1:8000/prometheus/metrics
 
 ### 📌 Grafana Dashboards
 Once Prometheus is collecting metrics, Grafana is used to visualize the data.
