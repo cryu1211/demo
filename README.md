@@ -54,7 +54,7 @@ $ curl -X GET "http://127.0.0.1:8000/api/users/"
 
 ## Monitoring with Prometheus & Grafana
 ### 📌 Overview
-This API is monitored using Prometheus for scraping metrics and Grafana for visualizing those metrics. The system exposes metrics through the /metrics endpoint in the Django application, which Prometheus scrapes.
+This API is monitored using **Prometheus** for scraping metrics and **Grafana** for visualizing those metrics.
 
 ### 📌 Configuration
 To set up monitoring, we have integrated Prometheus and Grafana with the Django API:
@@ -69,6 +69,8 @@ scrape_configs:
       - targets: ['web:8000']
     metrics_path: '/metrics'
 ```
+2. Django Metrics Export (```django-prometheus```)
+[Reference](https://github.com/korfuri/django-prometheus)
 
 ### 📌 Metrics Endpoint
 - The metrics endpoint (```/metrics```) is exposed by the Django app to allow Prometheus to scrape data.
