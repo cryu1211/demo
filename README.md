@@ -1,15 +1,15 @@
 #  API Deployment Guide
-## 📌 Overview
-This project provides a Django REST API with PostgreSQL as the database. The service is containerized using Podman Compose for deployment.
+### 📌 Overview
+This project provides a **Django REST API** with **PostgreSQL** as the database. The service is containerized using Podman Compose for deployment.
 
-## 📌 Prerequisites
+### 📌 Prerequisites
 Ensure you have the following installed:
 
 - Podman (>= 4.x)
 - Python (>= 3.8) (if running locally)
 - PostgreSQL (>= 13)
 
-## 📌 Configuration
+### 📌 Configuration
 Create a .env file in the root directory and configure your environment:
 ```
 DB_NAME=your_db_name
@@ -20,7 +20,7 @@ DB_PORT=5432
 ```
 
 
-## 📌 Deployment Setps
+### 📌 Deployment Setps
 1. Clone the repository
 ```sh
 $ git clone https://github.com/your-repo/your-api.git
@@ -31,10 +31,10 @@ $ podman-compose up --build -d
 ```
 Ensure that both the web (Django API) and db (PostgreSQL) services are running.
 
-## 📌 API Documentation
+### 📌 API Documentation
 Once the service is running, you can access the interactive API documentation: 👉 http://127.0.0.1:8000/swagger/
 
-## 📌 Using the API
+### 📌 Using the API
 1. Create a new user
 ```sh
 $ curl -X POST "http://127.0.0.1:8000/api/users/" -H "Content-Type: application/json" -d '{"name": "Alice", "email": "alice@example.com"}'
